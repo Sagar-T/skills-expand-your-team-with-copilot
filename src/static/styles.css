@@ -32,6 +32,29 @@
   --info-light: #d1ecf1;
 }
 
+:root[data-theme="dark"] {
+  --primary: #60a5fa;
+  --primary-light: #93c5fd;
+  --primary-dark: #2563eb;
+  --primary-text: #111827;
+  --secondary: #f59e0b;
+  --secondary-light: #fbbf24;
+  --secondary-dark: #d97706;
+  --secondary-text: #111827;
+  --background: #111827;
+  --surface: #1f2937;
+  --text-primary: #f9fafb;
+  --text-secondary: #d1d5db;
+  --border: #374151;
+  --border-light: #4b5563;
+  --border-focus: #6b7280;
+  --success-light: #163d24;
+  --warning-light: #4a3310;
+  --error-light: #4c1d1d;
+  --info: #93c5fd;
+  --info-light: #1e3a8a;
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -48,6 +71,7 @@ body {
   padding: 12px;
   background-color: var(--background);
   font-size: 0.9rem;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 header {
@@ -487,6 +511,8 @@ footer {
   flex: 1;
   min-width: 0; /* Add this to prevent input from overflowing */
   padding: 6px 10px;
+  background-color: var(--surface);
+  color: var(--text-primary);
   border: 1px solid var(--border);
   border-right: none;
   border-radius: 20px 0 0 20px;
@@ -617,6 +643,10 @@ footer {
   position: absolute;
   top: 10px;
   right: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
 }
 
 #user-status {
@@ -648,6 +678,16 @@ footer {
 
 .icon-button:hover {
   background-color: rgba(255, 255, 255, 0.3);
+}
+
+:root[data-theme="dark"] .icon-button,
+:root[data-theme="dark"] #logout-button {
+  background-color: rgba(17, 24, 39, 0.45);
+}
+
+:root[data-theme="dark"] .icon-button:hover,
+:root[data-theme="dark"] #logout-button:hover {
+  background-color: rgba(17, 24, 39, 0.7);
 }
 
 .user-icon {
