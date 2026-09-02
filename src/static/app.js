@@ -313,7 +313,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function buildActivityShareUrl(activityName) {
-    const shareUrl = new URL(window.location.href);
+    const shareUrl = new URL(window.location.pathname, window.location.origin);
     shareUrl.searchParams.set("activity", activityName);
     return shareUrl.toString();
   }
@@ -360,6 +360,23 @@ document.addEventListener("DOMContentLoaded", () => {
       formattedSchedule
     );
 
+    const socialLinks = [
+      {
+        label: "WhatsApp",
+        className: "share-link-button whatsapp",
+        href: `https://wa.me/?text=${encodeURIComponent(
+          `${shareText} ${shareUrl}`
+        )}`,
+      },
+      {
+        label: "Facebook",
+        className: "share-link-button facebook",
+        href: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+          shareUrl
+        )}`,
+      },
+    ];
+
     if (navigator.share) {
       const shareButton = document.createElement("button");
       shareButton.type = "button";
@@ -385,13 +402,15 @@ document.addEventListener("DOMContentLoaded", () => {
       shareActions.appendChild(shareButton);
     }
 
-    const emailLink = document.createElement("a");
-    emailLink.className = "share-link-button";
-    emailLink.href = `mailto:?subject=${encodeURIComponent(
-      `Mergington activity: ${activityName}`
-    )}&body=${encodeURIComponent(`${shareText}\n\n${shareUrl}`)}`;
-    emailLink.textContent = "Email";
-    shareActions.appendChild(emailLink);
+    socialLinks.forEach(({ label, className, href }) => {
+      const link = document.createElement("a");
+      link.className = className;
+      link.href = href;
+      link.textContent = label;
+      link.target = "_blank";
+      link.rel = "noopener noreferrer";
+      shareActions.appendChild(link);
+    });
 
     const copyButton = document.createElement("button");
     copyButton.type = "button";
